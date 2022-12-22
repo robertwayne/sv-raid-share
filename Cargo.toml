@@ -1,0 +1,16 @@
+[package]
+name = "sv-raid-share"
+authors = ["Rob Wagner <rob@sombia.com>"]
+repository = "https://github.com/robertwayne/sv-raid-share"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+copypasta = { version = "0.8", features = ["x11"] }
+leptess = "0.13.4"
+screenshots = "0.4.5"
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = true
