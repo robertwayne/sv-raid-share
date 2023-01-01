@@ -27,11 +27,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
 
             let raid_code = lt.get_utf8_text()?;
-            let raid_code = raid_code.trim();
+            let raid_code = raid_code.trim().replace(" ", "");
 
             // Ignore any text that isn't a raid code or is the same as the last
             // one
-            if raid_code.len() != 6 || raid_code == active_raid_code {
+            if raid_code.len() != 6
+                || raid_code == active_raid_code
+                || !raid_code.chars().all(|c| c.is_alphanumeric())
+            {
                 continue;
             }
 
@@ -45,6 +48,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
 
-        std::thread::sleep(std::time::Duration::from_secs(1));
+        std::thread::sleep(std::time::Duration::from_millis(500));
     }
 }
